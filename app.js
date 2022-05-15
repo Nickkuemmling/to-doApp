@@ -1,15 +1,44 @@
-// add a submit event listener on the form
+console.log(document);
 
-    // stop the page from refreshing when the form is submitted
+const mainForm = document.querySelector('form');
+const textBox = document.getElementById('toDoItem');
 
-    // only if the user has entered an actual task (AKA input is not empty):
+console.log(textBox)
+console.log(mainForm)
 
-    // grab the user's TO DO item from the form input
-    // display TO DO on the page within an li element
-        // include a checkbox icon within the li
-    // add the li element to the ul
+mainForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log(e);
+    if (textBox.value !== "") {
+        alert('You have submitted the form');
+        const liElement = document.createElement('li');
+        liElement.innerHTML = `<i class="fa-regular fa-square"></i>`;
+        
+        const toDoConent = document.createTextNode(textBox.value);
+        liElement.appendChild(toDoConent);
+        
+        const ulElement = document.querySelector('ul');
+        ulElement.appendChild(liElement);
+        textBox.value = "";
 
-// clicking on a task allows you to toggle between checked/unchecked (AKA done vs not done)
+        // Will not work because of event propagation
+        // const checkList = document.querySelector('li');
+        // checkList.addEventListener('click', function () {
+        // });
+
+        const checkList = document.querySelector('ul');
+        ulElement.addEventListener('click', function(e) {
+            if (e.target.localName === 'i') {
+                e.target.classList.toggle('fa-square-check');
+                e.target.classList.toggle('fa-square');
+            }
+        });
+
+
+    } else {
+        alert('Please fill in the text box.');
+    }
+});
 
 
 // BONUS LEVEL:
@@ -18,10 +47,4 @@
 // add a "Remove task" button to each task
 // add a congratulations alert when all of the existing TO DOs are checked off 
 // add a "Take a break" message if 5 or more tasks are completed
-
-console.log(Document);
-console.log('Hello World');
-
-const mainlist = document.querySelector('ul');
-const formResponse = document.getElementById('toDoItem')
 
